@@ -1,22 +1,34 @@
+"""Игра угадай число
+Компьютер сам загадывает и сам угадывает число
+"""
+
 import numpy as np
 
 def random_predict(number:int=1) -> int:
     """Рандомно угадываем число
-
     Args:
         number (int, optional): Загаданное число. Defaults to 1.
-
     Returns:
         int: Число попыток
     """
 
+    min_number = 1
+    max_number = 100
+    number = np.random.randint(1, 101)
     count = 0
 
     while True:
         count += 1
-        predict_number = np.random.randint(1, 101) # предполагаемое число
-        if number == predict_number:
-            break # выход из цикла, если угадали
+        middle_number = (min_number + max_number) // 2
+
+        if middle_number > number:
+          max_number = middle_number
+
+        elif  middle_number < number:
+          min_number = middle_number
+
+        else:
+           break # выход из цикла, если угадали
     return(count)
 
 print(f'Количество попыток: {random_predict()}')
@@ -44,4 +56,5 @@ def score_game(random_predict) -> int:
     return(score)
 
 # RUN
-score_game(random_predict)
+if __name__ == '__main__':
+    score_game(random_predict)
